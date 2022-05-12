@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/Config",
+  "$defs": {
+    "Config": {
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "services": {
+          "patternProperties": {
+            ".*": {
+              "$ref": "#/$defs/Service"
+            }
+          },
+          "type": "object",
+          "title": "Services",
+          "description": "Container definitions"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "PortMapping": {
+      "type": "string",
+      "pattern": "^[0-9]+:[0-9]+$",
+      "title": "Port mapping",
+      "description": "Port to expose",
+      "examples": [
+        "3000:3000"
+      ]
+    },
+    "Service": {
+      "properties": {
+        "image": {
+          "type": "string",
+          "title": "Image",
+          "description": "The image to run",
+          "examples": [
+            "alpine:latest"
+          ]
+        },
+        "ports": {
+          "items": {
+            "$ref": "#/$defs/PortMapping"
+          },
+          "type": "array",
+          "title": "Ports",
+          "description": "Ports to expose"
+        },
+        "env": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "image"
+      ]
+    }
+  }
+}

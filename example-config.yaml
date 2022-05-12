@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=./schema.json
+
+services:
+  web:
+    image: alpine:latest
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+    env:
+      ENV: "hoge"
+
+  worker:
+    image: java:latest
+    ports: []
